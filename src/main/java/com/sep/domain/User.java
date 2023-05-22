@@ -1,0 +1,74 @@
+package com.sep.domain;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String username;
+    private String password;
+    @OneToMany
+    @JsonIgnore
+    @JoinColumn(name = "projectId")
+    private List<Project> projectList;
+    @OneToMany
+    @JsonIgnore
+    @JoinColumn(name = "taskId")
+    private List<Task> taskList;
+
+    public User(Long id, String username, String password, List<Project> projectList, List<Task> taskList) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.projectList = projectList;
+        this.taskList = taskList;
+    }
+
+    public User() {
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public List<Task> getTaskList() {
+        return taskList;
+    }
+
+    public void setTaskList(List<Task> taskList) {
+        this.taskList = taskList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+}
